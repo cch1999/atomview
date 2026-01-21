@@ -1,0 +1,62 @@
+[project]
+name = "atomview"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Charlie Harris", email = "charlieharris001@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "atomworks>=1.0.3",
+    "biotite>=1.5.0",
+    "dotenv>=0.9.9",
+    "py3dmol>=2.5.3",
+]
+
+[project.scripts]
+atomview = "atomview:main"
+
+[build-system]
+requires = ["uv_build>=0.8.3,<0.9.0"]
+build-backend = "uv_build"
+
+
+
+[project.urls]
+Homepage = "https://github.com/USER/PROJECT_NAME"
+Repository = "https://github.com/USER/PROJECT_NAME"
+Documentation = "https://PROJECT_NAME.readthedocs.io"
+Issues = "https://github.com/USER/PROJECT_NAME/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-xdist>=3.8.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+    "ty>=0.0.1",
+    "interrogate>=1.7.0",
+    "justfile>=0.0.1a0",
+    "ipykernel>=7.1.0",
+    "pre-commit>=3.0.0",
+]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.0.0",
+]
+
+
+[tool.ruff]
+line-length = 100
+lint.select = ["E","F","I","UP","B","BLE","PL","RUF"]
+exclude = [
+    "*.ipynb",           # Ignore Jupyter notebooks
+    "__pycache__",       # Ignore Python cache
+    ".git",              # Ignore git directory
+    ".venv",             # Ignore virtual environments
+    "venv",              # Ignore virtual environments
+    "build",             # Ignore build directories
+    "dist",              # Ignore distribution directories
+]
+
