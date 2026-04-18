@@ -53,9 +53,7 @@ def to_cif_string(
             "b_factor",
         }
         extra_fields = [
-            field
-            for field in structure.get_annotation_categories()
-            if field not in standard_fields
+            field for field in structure.get_annotation_categories() if field not in standard_fields
         ]
 
     pdbx.set_structure(
