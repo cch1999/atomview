@@ -2,21 +2,20 @@ name: Tests and Quality Checks
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
     paths-ignore:
-      - 'docs/**'
-      - '**.md'
-      - '**.png'
-      - 'LICENSE'
+      - "docs/**"
+      - "**.md"
+      - "**.png"
+      - "LICENSE"
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
     paths-ignore:
-      - 'docs/**'
-      - '**.md'
-      - '**.png'
-      - 'LICENSE'
+      - "docs/**"
+      - "**.md"
+      - "**.png"
+      - "LICENSE"
 
-# Cancel in-progress runs for the same PR/branch
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -35,7 +34,7 @@ jobs:
           cache-dependency-glob: "uv.lock"
 
       - name: Set up Python
-        run: uv python install 3.11
+        run: uv python install 3.12
 
       - name: Install dependencies
         run: uv sync --all-extras
@@ -46,10 +45,10 @@ jobs:
           uv run ruff format --check src/ tests/
 
       - name: Run Type Checking
-        run: uv run ty check src/ 
+        run: uv run ty check src/
 
       - name: Run Interrogate
-        run: uv run interrogate src/ 
+        run: uv run interrogate src/
 
   test:
     name: Test on ${{ matrix.os }} / Python ${{ matrix.python-version }}
@@ -58,7 +57,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.12"]
 
     steps:
       - uses: actions/checkout@v4
@@ -76,5 +75,4 @@ jobs:
         run: uv sync --all-extras
 
       - name: Run tests
-        # Use 4 workers for better parallelization (tests are I/O-bound)
         run: uv run pytest tests/ -n 4 -v --cov=src/ --cov-report=xml --cov-report=term-missing

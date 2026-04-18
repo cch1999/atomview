@@ -1,41 +1,45 @@
-"""Toy tests for package-template."""
+"""Smoke tests for the public atomview API."""
 
-from unittest.mock import patch
+from pathlib import Path
 
-import pytest
+import py3Dmol
 
-from package_template import main
-from package_template.cli import main as cli_main
+from atomview import load_structure, to_cif_string, view
 
-
-def test_main():
-    """Test the main function outputs the expected message."""
-    with patch("builtins.print") as mock_print:
-        main()
-        mock_print.assert_called_once_with("Hello from package-template!")
+FIXTURES_DIR = Path(__file__).resolve().parent.parent
+STRUCTURE_PATH = FIXTURES_DIR / "4hhb.cif"
+XYZ_DIMENSIONS = 3
 
 
-def test_cli_default(capsys):
-    """Test CLI with default arguments."""
-    with patch("sys.argv", ["cli"]):
-        cli_main()
-    captured = capsys.readouterr()
-    assert "Hello, World!" in captured.out
+def test_load_structure_from_path() -> None:
+    """Load a bundled mmCIF structure from disk."""
+    structure = load_structure(STRUCTURE_PATH)
+
+    assert structure.array_length() > 0
+    assert structure.coord.shape[1] == XYZ_DIMENSIONS
 
 
-def test_cli_custom_name(capsys):
-    """Test CLI with custom name argument."""
-    with patch("sys.argv", ["cli", "--name", "Alice"]):
-        cli_main()
-    captured = capsys.readouterr()
-    assert "Hello, Alice!" in captured.out
+def test_load_structure_from_cif_string() -> None:
+    """Load a structure from an in-memory CIF string."""
+    cif_text = STRUCTURE_PATH.read_text()
+    structure = load_structure(cif_text)
+
+    assert structure.array_length() > 0
+    assert structure.res_name[0]
 
 
-def test_cli_help(capsys):
-    """Test CLI help message."""
-    with pytest.raises(SystemExit):
-        with patch("sys.argv", ["cli", "--help"]):
-            cli_main()
-    # Help should be printed to stdout
-    captured = capsys.readouterr()
-    assert "Example CLI program" in captured.out or "package-template" in captured.out
+def test_to_cif_string_returns_mmcif_text() -> None:
+    """Serialize a structure back to mmCIF text."""
+    structure = load_structure(STRUCTURE_PATH)
+    cif_text = to_cif_string(structure, id="4hhb")
+
+    assert cif_text.startswith("data_4hhb")
+    assert "_atom_site.Cartn_x" in cif_text
+
+
+def test_view_returns_py3dmol_view() -> None:
+    """Build a viewer object from the package root API."""
+    structure = load_structure(STRUCTURE_PATH)
+    viewer = view(structure, show_surface=False, show_hover=False)
+
+    assert isinstance(viewer, py3Dmol.view)
