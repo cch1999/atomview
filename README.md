@@ -18,7 +18,7 @@ Requires Python >= 3.12.
 from atomview import load_structure, view
 
 # Load a structure from a local mmCIF file
-structure = load_structure("4hhb.cif")
+structure = load_structure("tests/data/4hhb.cif")
 
 # Render it — that's it
 view(structure)
@@ -90,7 +90,7 @@ Load a structure from a `.cif` or `.bcif` file, a file path string, or a `String
 ```python
 from atomview import load_structure
 
-structure = load_structure("7gaw.cif")
+structure = load_structure("tests/data/7gaw.cif")
 ```
 
 ## Why not just use atomworks?
