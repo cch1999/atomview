@@ -21,7 +21,6 @@ Issues = "https://github.com/cch1999/atomview/issues"
 
 [project.optional-dependencies]
 dev = [
-    "interrogate>=1.7.0",
     "ipykernel>=7.1.0",
     "justfile>=0.0.1a0",
     "pre-commit>=3.0.0",
@@ -30,10 +29,6 @@ dev = [
     "pytest-xdist>=3.8.0",
     "ruff>=0.1.0",
     "ty>=0.0.1",
-]
-docs = [
-    "mkdocs>=1.6.1",
-    "mkdocs-material>=9.0.0",
 ]
 
 [tool.ruff]

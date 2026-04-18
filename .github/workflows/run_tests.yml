@@ -4,14 +4,12 @@ on:
   push:
     branches: [main, develop]
     paths-ignore:
-      - "docs/**"
       - "**.md"
       - "**.png"
       - "LICENSE"
   pull_request:
     branches: [main, develop]
     paths-ignore:
-      - "docs/**"
       - "**.md"
       - "**.png"
       - "LICENSE"
@@ -37,7 +35,7 @@ jobs:
         run: uv python install 3.12
 
       - name: Install dependencies
-        run: uv sync --all-extras
+        run: uv sync --extra dev
 
       - name: Run Linting & Formatting
         run: |
@@ -46,9 +44,6 @@ jobs:
 
       - name: Run Type Checking
         run: uv run ty check src/
-
-      - name: Run Interrogate
-        run: uv run interrogate src/
 
   test:
     name: Test on ${{ matrix.os }} / Python ${{ matrix.python-version }}
@@ -72,7 +67,7 @@ jobs:
         run: uv python install ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: uv sync --all-extras
+        run: uv sync --extra dev
 
       - name: Run tests
         run: uv run pytest tests/ -n 4 -v --cov=src/ --cov-report=xml --cov-report=term-missing

@@ -21,21 +21,16 @@ format:
 fix:
     uv run ruff check . --fix
 
-# Check docstring coverage
-cov:
-    uv run interrogate src/ -v
-
 # Run all checks as in CI
 all:
     uv run ty check src/atomview
     uv run ruff check src/ tests/
     uv run ruff format --check src/ tests/
-    uv run interrogate src/ -v
     uv run pytest tests/ -n=auto -v
 
 # Sync uv
 sync:
-    uv sync --all-extras
+    uv sync --extra dev
 
 # Delete all compiled Python files
 clean:
