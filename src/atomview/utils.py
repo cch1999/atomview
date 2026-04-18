@@ -1,4 +1,7 @@
-"""Utility helpers for working with mmCIF/BinaryCIF structures."""
+"""Utility helpers for working with mmCIF/BinaryCIF structures.
+
+Adapted from https://github.com/RosettaCommons/atomworks/blob/production/src/atomworks/io/utils/visualize.py
+"""
 
 from __future__ import annotations
 

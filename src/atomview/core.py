@@ -1,4 +1,7 @@
-"""Utilities to visualize atom arrays with py3Dmol in Jupyter notebooks."""
+"""Utilities to visualize atom arrays with py3Dmol in Jupyter notebooks.
+
+Adapted from https://github.com/RosettaCommons/atomworks/blob/production/src/atomworks/io/utils/visualize.py
+"""
 
 from __future__ import annotations
 

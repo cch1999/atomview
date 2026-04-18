@@ -1,4 +1,4 @@
-
+# Adapted from https://github.com/RosettaCommons/atomworks/blob/production/src/atomworks/io/utils/visualize.py
 
 VIEWER_COLORS = [
     "#888888",  # pymol_gray
