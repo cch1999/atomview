@@ -14,7 +14,7 @@ from atomview.constants import CRYSTALLIZATION_AIDS, METAL_ELEMENTS, VIEWER_COLO
 from atomview.utils import reassign_chain_ids, to_cif_string
 
 
-def view(
+def view(  # noqa: PLR0913
     structure: AtomArray | AtomArrayStack,
     *,
     zoom_to_selection: dict[str, int | str] | None = None,
@@ -41,19 +41,24 @@ def view(
                 - `{'chain': 'A', 'resi': 35}` - will zoom to the residue id 35 in chain A
                 - `{'chain': 'C'} - will zoom to the entire chain C
             !WARNING! If the selection is wrong, the visualization will be empty.
-        - show_hover (bool, optional): Whether to enable hover functionality to display atom details.
-            Defaults to True.
+        - show_hover (bool, optional): Whether to enable hover functionality to display atom
+            details. Defaults to True.
         - show_unoccupied (bool, optional): Whether to show unoccupied atoms. Defaults to False.
         - show_cartoon (bool, optional): Whether to show the cartoon. Defaults to True.
         - show_surface (bool, optional): Whether to show the surface. Defaults to False.
         - width (int, optional): The width of the visualization window. Defaults to 400.
         - height (int, optional): The height of the visualization window. Defaults to 300.
-        - ligand_linewidth (float, optional): The linewidth for ligand representation. Defaults to 0.2.
-        - polymer_sidechain_linewidth (float, optional): The linewidth for polymer sidechain representation. Defaults to 0.05.
-        - min_polymer_size (int, optional): The minimum size for a chain to be displayed as a polymer. Defaults to 1.
+        - ligand_linewidth (float, optional): The linewidth for ligand representation.
+            Defaults to 0.2.
+        - polymer_sidechain_linewidth (float, optional): The linewidth for polymer sidechain
+            representation. Defaults to 0.05.
+        - min_polymer_size (int, optional): The minimum size for a chain to be displayed as a
+            polymer. Defaults to 1.
         - hide_solvent (bool, optional): Whether to hide solvent. Defaults to True.
-        - hide_crystallization_aids (bool, optional): Whether to hide crystallization aids. Defaults to True.
-        - colors (list[str], optional): A list of colors to cycle through for different chains. Defaults to IPD_PYMOL_COLORS.
+        - hide_crystallization_aids (bool, optional): Whether to hide crystallization aids.
+            Defaults to True.
+        - colors (list[str], optional): A list of colors to cycle through for different chains.
+            Defaults to IPD_PYMOL_COLORS.
 
     Returns:
         py3Dmol.view: The py3Dmol view object for the structure visualization.
@@ -91,25 +96,22 @@ def view(
     for chain_id, color in zip(chain_ids, cycle(colors)):
         is_protein = np.all(
             struc.filter_polymer(
-                structure[structure.chain_id == chain_id], pol_type="peptide", min_size=min_polymer_size
+                structure[structure.chain_id == chain_id],
+                pol_type="peptide",
+                min_size=min_polymer_size,
             )
             & struc.filter_amino_acids(structure[structure.chain_id == chain_id])
         )
-        print(struc.filter_polymer(
-               structure[structure.chain_id == chain_id], pol_type="nucleotide", min_size=min_polymer_size
-             ))
-        print(struc.filter_nucleotides(structure[structure.chain_id == chain_id]))
         is_nucleic = np.all(
             struc.filter_polymer(
-                structure[structure.chain_id == chain_id], pol_type="nucleotide", min_size=min_polymer_size
+                structure[structure.chain_id == chain_id],
+                pol_type="nucleotide",
+                min_size=min_polymer_size,
             )
-            # struc.filter_nucleotides(structure[structure.chain_id == chain_id])
         )
         # Check if all atoms in chain are metals
         chain_elements = structure[structure.chain_id == chain_id].element
         is_ion = len(chain_elements) > 0 and np.all(np.isin(chain_elements, METAL_ELEMENTS))
-
-        print(chain_id, is_protein, is_nucleic, is_ion)
 
         if is_protein or is_nucleic:
             # Apply protein or nucleic acid style

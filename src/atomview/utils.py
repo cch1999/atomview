@@ -59,13 +59,21 @@ def to_cif_string(
     if extra_fields == "all":
         # Get all annotation categories except standard ones
         standard_fields = {
-            "chain_id", "res_id", "res_name", "atom_name", "atom_id",
-            "element", "ins_code", "hetero", "altloc_id", "charge",
-            "occupancy", "b_factor",
+            "chain_id",
+            "res_id",
+            "res_name",
+            "atom_name",
+            "atom_id",
+            "element",
+            "ins_code",
+            "hetero",
+            "altloc_id",
+            "charge",
+            "occupancy",
+            "b_factor",
         }
         extra_fields = [
-            field for field in structure.get_annotation_categories()
-            if field not in standard_fields
+            field for field in structure.get_annotation_categories() if field not in standard_fields
         ]
     print(extra_fields)
     # Set the structure in the CIF file (this creates the block)
@@ -74,7 +82,7 @@ def to_cif_string(
         structure,
         data_block=id,
         include_bonds=include_bonds,
-        #extra_fields=extra_fields
+        # extra_fields=extra_fields
     )
 
     # Write to buffer and return as string
@@ -84,7 +92,7 @@ def to_cif_string(
     return buffer.getvalue()
 
 
-def _load_structure(
+def _load_structure(  # noqa: PLR0912
     source: str | Path | io.StringIO | io.BytesIO,
     *,
     include_bonds: bool = True,
@@ -151,7 +159,7 @@ def _load_structure(
         source.seek(0)
         try:
             cif_file = pdbx.BinaryCIFFile.read(source)
-        except Exception:
+        except Exception:  # noqa: BLE001
             source.seek(0)
             cif_file = pdbx.CIFFile.read(source)
         structure = pdbx.get_structure(
@@ -168,10 +176,14 @@ def _load_structure(
         path = source
         # Determine file type from extension
         suffix = path.suffix.lower()
-        if suffix == ".bcif" or (suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".bcif"):
+        if suffix == ".bcif" or (
+            suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".bcif"
+        ):
             # Binary CIF file
             cif_file = pdbx.BinaryCIFFile.read(str(path))
-        elif suffix == ".cif" or (suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".cif"):
+        elif suffix == ".cif" or (
+            suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".cif"
+        ):
             # Regular CIF file
             cif_file = pdbx.CIFFile.read(str(path))
         else:
