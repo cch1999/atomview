@@ -38,6 +38,18 @@ view(structure)
 - **Solvent & crystallisation aid filtering** (SO4, GOL, EDO, PO4, etc.) enabled by default
 - **Lightweight** — only depends on `biotite`, `py3Dmol`, `numpy`, and `matplotlib`
 
+## Gallery
+
+| Default protein view | Ligand focus |
+|---|---|
+| ![Chain-coloured cartoon rendering of hemoglobin](docs/images/default-protein.png) | ![Zoomed protein-ligand rendering with ligand sticks](docs/images/ligand-focus.png) |
+| One-line rendering with automatic chain colouring. | Zoom to a ligand or binding-site selection. |
+
+| Surface overlay | Mixed complex |
+|---|---|
+| ![Hemoglobin with translucent molecular surface](docs/images/surface-overlay.png) | ![Mixed biomolecular complex with ligand sticks](docs/images/mixed-complex.png) |
+| Optional translucent VDW surface for shape context. | Proteins, nucleic acids, ligands, and ions styled together. |
+
 ## API
 
 ### `view()`
