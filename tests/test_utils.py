@@ -7,8 +7,8 @@ import numpy as np
 import pytest
 from biotite.structure import AtomArray
 
-from atomview import load_structure, to_cif_string
-from atomview.utils import reassign_chain_ids
+from atomview import load_structure
+from atomview.utils import reassign_chain_ids, to_cif_string
 
 DEFAULT_ATOM_COUNT = 2
 
