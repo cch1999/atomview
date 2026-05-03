@@ -34,7 +34,7 @@ view(structure)
 - **Optional VDW surface** overlay
 - **Zoom to selection** — focus on a specific chain, residue, or atom
 - **Solvent & crystallisation aid filtering** (SO4, GOL, EDO, PO4, etc.) enabled by default
-- **Lightweight** — only depends on `biotite`, `py3Dmol`, `numpy`, and `matplotlib`
+- **Lightweight** — only dependson `biotite` and `py3Dmol`.
 
 ## Gallery
 
