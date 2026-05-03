@@ -53,12 +53,12 @@ view(structure)
 
 | Default protein view | Surface overlay |
 |---|---|
-| ![Chain-coloured cartoon rendering of hemoglobin](docs/images/default-protein.png) | ![Hemoglobin with translucent molecular surface](docs/images/surface-overlay.png) |
+| ![Chain-coloured cartoon rendering of hemoglobin](https://raw.githubusercontent.com/cch1999/atomview/v0.0.1/docs/images/default-protein.png) | ![Hemoglobin with translucent molecular surface](https://raw.githubusercontent.com/cch1999/atomview/v0.0.1/docs/images/surface-overlay.png) |
 | One-line rendering with automatic chain colouring. | Optional translucent VDW surface for shape context. |
 
 | Ligand focus | Mixed complex |
 |---|---|
-| ![4TOS protein-ligand rendering with ligand sticks](docs/images/ligand-focus.png) | ![2CV5 protein-DNA complex rendering](docs/images/mixed-complex.png) |
+| ![4TOS protein-ligand rendering with ligand sticks](https://raw.githubusercontent.com/cch1999/atomview/v0.0.1/docs/images/ligand-focus.png) | ![2CV5 protein-DNA complex rendering](https://raw.githubusercontent.com/cch1999/atomview/v0.0.1/docs/images/mixed-complex.png) |
 | Zoom to a ligand or binding-site selection. | Proteins, nucleic acids, ligands, and ions styled together. |
 
 ## API
