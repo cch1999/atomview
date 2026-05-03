@@ -40,15 +40,15 @@ view(structure)
 
 ## Gallery
 
-| Default protein view | Ligand focus |
+| Default protein view | Surface overlay |
 |---|---|
-| ![Chain-coloured cartoon rendering of hemoglobin](docs/images/default-protein.png) | ![Zoomed protein-ligand rendering with ligand sticks](docs/images/ligand-focus.png) |
-| One-line rendering with automatic chain colouring. | Zoom to a ligand or binding-site selection. |
+| ![Chain-coloured cartoon rendering of hemoglobin](docs/images/default-protein.png) | ![Hemoglobin with translucent molecular surface](docs/images/surface-overlay.png) |
+| One-line rendering with automatic chain colouring. | Optional translucent VDW surface for shape context. |
 
-| Surface overlay | Mixed complex |
+| Ligand focus | Mixed complex |
 |---|---|
-| ![Hemoglobin with translucent molecular surface](docs/images/surface-overlay.png) | ![Mixed biomolecular complex with ligand sticks](docs/images/mixed-complex.png) |
-| Optional translucent VDW surface for shape context. | Proteins, nucleic acids, ligands, and ions styled together. |
+| ![4TOS protein-ligand rendering with ligand sticks](docs/images/ligand-focus.png) | ![2CV5 protein-DNA complex rendering](docs/images/mixed-complex.png) |
+| Zoom to a ligand or binding-site selection. | Proteins, nucleic acids, ligands, and ions styled together. |
 
 ## API
 
