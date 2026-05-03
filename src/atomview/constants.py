@@ -1,4 +1,8 @@
+"""Constants used to style molecular structures in py3Dmol.
 
+Adapted from atomworks.io.utils.visualize:
+https://github.com/RosettaCommons/atomworks/blob/production/src/atomworks/io/utils/visualize.py
+"""
 
 VIEWER_COLORS = [
     "#888888",  # pymol_gray
@@ -22,12 +26,55 @@ VIEWER_COLORS = [
 ]
 
 
-METAL_ELEMENTS = ['ZR', 'RB', 'BA', 'OS', 'MG', 'CS', 'CA', 'TI',
-    'RH', 'NI', 'HF', 'NB', 'AL', 'GA', 'IN', 'TA',
-    'TC', 'SN', 'IR', 'CO', 'LA', 'HG', 'SC', 'MO',
-    'CR', 'K', 'W', 'RE', 'CU', 'FE', 'Y', 'SR', 'CD',
-    'AU', 'RU', 'PD', 'BE', 'PB', 'MN', 'BI', 'V', 'AG',
-    'NA', 'TL', 'PT', 'LI', 'ZN']
+METAL_ELEMENTS = [
+    "ZR",
+    "RB",
+    "BA",
+    "OS",
+    "MG",
+    "CS",
+    "CA",
+    "TI",
+    "RH",
+    "NI",
+    "HF",
+    "NB",
+    "AL",
+    "GA",
+    "IN",
+    "TA",
+    "TC",
+    "SN",
+    "IR",
+    "CO",
+    "LA",
+    "HG",
+    "SC",
+    "MO",
+    "CR",
+    "K",
+    "W",
+    "RE",
+    "CU",
+    "FE",
+    "Y",
+    "SR",
+    "CD",
+    "AU",
+    "RU",
+    "PD",
+    "BE",
+    "PB",
+    "MN",
+    "BI",
+    "V",
+    "AG",
+    "NA",
+    "TL",
+    "PT",
+    "LI",
+    "ZN",
+]
 
 
 CRYSTALLIZATION_AIDS = [

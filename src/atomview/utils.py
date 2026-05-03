@@ -1,4 +1,8 @@
-"""Utility functions for working with CIF files using pure biotite."""
+"""Utility functions for working with CIF files using pure biotite.
+
+Adapted from atomworks.io.utils.visualize:
+https://github.com/RosettaCommons/atomworks/blob/production/src/atomworks/io/utils/visualize.py
+"""
 
 import io
 from pathlib import Path
@@ -9,6 +13,8 @@ import biotite.structure as struc
 import numpy as np
 from biotite.structure import AtomArray, AtomArrayStack
 from biotite.structure.io import pdbx
+from biotite.structure.io.pdb import PDBFile
+from biotite.structure.io.pdb import get_structure as pdb_get_structure
 
 
 def to_cif_string(
@@ -59,22 +65,29 @@ def to_cif_string(
     if extra_fields == "all":
         # Get all annotation categories except standard ones
         standard_fields = {
-            "chain_id", "res_id", "res_name", "atom_name", "atom_id",
-            "element", "ins_code", "hetero", "altloc_id", "charge",
-            "occupancy", "b_factor",
+            "chain_id",
+            "res_id",
+            "res_name",
+            "atom_name",
+            "atom_id",
+            "element",
+            "ins_code",
+            "hetero",
+            "altloc_id",
+            "charge",
+            "occupancy",
+            "b_factor",
         }
         extra_fields = [
-            field for field in structure.get_annotation_categories()
-            if field not in standard_fields
+            field for field in structure.get_annotation_categories() if field not in standard_fields
         ]
-    print(extra_fields)
     # Set the structure in the CIF file (this creates the block)
     pdbx.set_structure(
         cif_file,
         structure,
         data_block=id,
         include_bonds=include_bonds,
-        #extra_fields=extra_fields
+        # extra_fields=extra_fields
     )
 
     # Write to buffer and return as string
@@ -84,20 +97,19 @@ def to_cif_string(
     return buffer.getvalue()
 
 
-def _load_structure(
+def load_structure(  # noqa: PLR0912, PLR0915
     source: str | Path | io.StringIO | io.BytesIO,
     *,
     include_bonds: bool = True,
     model: int | None = None,
 ) -> AtomArray:
-    """Load an AtomArray structure from a CIF file or string.
+    """Load an AtomArray structure from mmCIF, BinaryCIF, or PDB files (or CIF text).
 
-    This function uses pure biotite to load structures from CIF format,
-    optimized for use with molecular viewers.
+    This function uses biotite I/O, optimised for use with molecular viewers.
 
     Args:
         source: The source to load from. Can be:
-            - A file path (str or Path) to a .cif or .bcif file
+            - A file path (str or Path) to a .cif, .bcif, or .pdb file
             - A StringIO/BytesIO buffer containing CIF data
             - A CIF string
         include_bonds (bool): Whether to include bonds in the structure. Defaults to True.
@@ -151,7 +163,7 @@ def _load_structure(
         source.seek(0)
         try:
             cif_file = pdbx.BinaryCIFFile.read(source)
-        except Exception:
+        except Exception:  # noqa: BLE001
             source.seek(0)
             cif_file = pdbx.CIFFile.read(source)
         structure = pdbx.get_structure(
@@ -168,14 +180,33 @@ def _load_structure(
         path = source
         # Determine file type from extension
         suffix = path.suffix.lower()
-        if suffix == ".bcif" or (suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".bcif"):
+        if suffix == ".bcif" or (
+            suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".bcif"
+        ):
             # Binary CIF file
             cif_file = pdbx.BinaryCIFFile.read(str(path))
-        elif suffix == ".cif" or (suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".cif"):
+        elif suffix == ".cif" or (
+            suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".cif"
+        ):
             # Regular CIF file
             cif_file = pdbx.CIFFile.read(str(path))
+        elif suffix == ".pdb" or (
+            suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".pdb"
+        ):
+            pdb_file = PDBFile.read(str(path))
+            structure = pdb_get_structure(
+                pdb_file,
+                model=model if model is not None else 1,
+                include_bonds=include_bonds,
+            )
+            if isinstance(structure, AtomArrayStack):
+                if model is not None:
+                    structure = structure[model - 1]
+                else:
+                    structure = structure[0]
+            return structure
         else:
-            raise ValueError(f"Unsupported file format: {suffix}. Use .cif or .bcif")
+            raise ValueError(f"Unsupported file format: {suffix}. Use .cif, .bcif, or .pdb")
 
         # Load structure from CIF file
         structure = pdbx.get_structure(
@@ -194,6 +225,9 @@ def _load_structure(
         return structure
 
     raise ValueError(f"Unexpected source type after processing: {type(source)}")
+
+
+_load_structure = load_structure
 
 
 def reassign_chain_ids(structure: AtomArray) -> AtomArray:

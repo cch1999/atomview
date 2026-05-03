@@ -1,8 +1,17 @@
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://docs.astral.sh/ruff/)
+[![ty](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ty/main/assets/badge/v0.json)](https://github.com/astral-sh/ty)
+[![Tests](https://github.com/cch1999/atomview/actions/workflows/run_tests.yml/badge.svg)](https://github.com/cch1999/atomview/actions/workflows/run_tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)
+[![PyPI version](https://img.shields.io/pypi/v/atomview)](https://pypi.org/project/atomview/)
+<!-- [![Docs](https://img.shields.io/badge/docs-latest-blueviolet.svg)](https://atomview.readthedocs.io/en/latest/) -->
+
+
 # atomview
 
 A lightweight, standalone molecular structure viewer for Jupyter notebooks. Visualize [biotite](https://www.biotite-python.org/) `AtomArray` structures interactively using [py3Dmol](https://3dmol.csb.pitt.edu/) (3Dmol.js) — with chain-coloured cartoons, ligand sticks, ion spheres, surfaces, and hover labels out of the box.
 
-**atomview** extracts and refactors the excellent `view()` visualisation utility from [atomworks](https://github.com/RosettaCommons/atomworks) (`atomworks.io.utils.visualize`) into a focused, minimal package. If all you need is a quick way to render structures in a notebook, you no longer have to pull in atomworks and its full dependency tree (RDKit, ML tooling, dataset infrastructure, etc.).
+**atomview** extracts and refactors the excellent `view()` function from [atomworks](https://github.com/RosettaCommons/atomworks) (`atomworks.io.utils.visualize`) into a focused, minimal package. If all you need is a quick way to render structures in a notebook, you no longer have to pull in atomworks and its full dependency tree (RDKit, ML tooling, dataset infrastructure, etc.).
 
 ## Installation
 
@@ -10,24 +19,26 @@ A lightweight, standalone molecular structure viewer for Jupyter notebooks. Visu
 pip install atomview
 ```
 
-Requires Python >= 3.12.
+Or with uv:
+
+```bash
+uv add atomview
+```
 
 ## Quickstart
 
 ```python
-from atomview.core import view
-from atomview.utils import _load_structure
+# from urllib.request import urlretrieve
+# urlretrieve("https://files.rcsb.org/download/4HHB.cif", "4hhb.cif")
 
-# Load a structure from a local mmCIF file
-structure = _load_structure("4hhb.cif")
+from atomview import load_structure, view
 
-# Render it — that's it
+structure = load_structure("4hhb.cif")
+
 view(structure)
 ```
 
-![3D viewer rendering of hemoglobin (4HHB)](https://img.shields.io/badge/py3Dmol-interactive-blue)
-
-## Features
+<!-- ## Features
 
 - **One-liner visualisation** of any biotite `AtomArray` or `AtomArrayStack`
 - **Automatic chain colouring** with a curated 18-colour palette
@@ -36,7 +47,19 @@ view(structure)
 - **Optional VDW surface** overlay
 - **Zoom to selection** — focus on a specific chain, residue, or atom
 - **Solvent & crystallisation aid filtering** (SO4, GOL, EDO, PO4, etc.) enabled by default
-- **Lightweight** — only depends on `biotite`, `py3Dmol`, `numpy`, and `matplotlib`
+- **Lightweight** — only dependson `biotite` and `py3Dmol`. -->
+
+## Gallery
+
+| Default protein view | Surface overlay |
+|---|---|
+| ![Chain-coloured cartoon rendering of hemoglobin](docs/images/default-protein.png) | ![Hemoglobin with translucent molecular surface](docs/images/surface-overlay.png) |
+| One-line rendering with automatic chain colouring. | Optional translucent VDW surface for shape context. |
+
+| Ligand focus | Mixed complex |
+|---|---|
+| ![4TOS protein-ligand rendering with ligand sticks](docs/images/ligand-focus.png) | ![2CV5 protein-DNA complex rendering](docs/images/mixed-complex.png) |
+| Zoom to a ligand or binding-site selection. | Proteins, nucleic acids, ligands, and ions styled together. |
 
 ## API
 
@@ -45,7 +68,7 @@ view(structure)
 The main entry point. Returns a `py3Dmol.view` object that renders inline in Jupyter.
 
 ```python
-from atomview.core import view
+from atomview import view
 
 v = view(
     structure,
@@ -59,39 +82,6 @@ v = view(
     height=400,
     colors=None,                  # custom colour list, or use defaults
 )
-```
-
-**Key parameters:**
-
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `structure` | `AtomArray \| AtomArrayStack` | *required* | Biotite structure to visualise |
-| `zoom_to_selection` | `dict \| None` | `None` | Zoom to `{"serial": 35}`, `{"chain": "A", "resi": 35}`, or `{"chain": "C"}` |
-| `show_cartoon` | `bool` | `True` | Cartoon representation for proteins/nucleic acids |
-| `show_surface` | `bool` | `True` | Semi-transparent VDW surface |
-| `show_hover` | `bool` | `True` | Hover labels with atom details |
-| `hide_solvent` | `bool` | `True` | Remove water molecules |
-| `hide_crystallization_aids` | `bool` | `True` | Remove common crystallisation artefacts |
-| `width` / `height` | `int` | `600` / `400` | Viewer dimensions in pixels |
-
-### `to_cif_string()`
-
-Convert a biotite `AtomArray` to a CIF-formatted string (useful for passing structures to other viewers or tools).
-
-```python
-from atomview.utils import to_cif_string
-
-cif_str = to_cif_string(structure, id="my_protein")
-```
-
-### `_load_structure()`
-
-Load a structure from a `.cif` or `.bcif` file, a file path string, or a `StringIO`/`BytesIO` buffer.
-
-```python
-from atomview.utils import _load_structure
-
-structure = _load_structure("7gaw.cif")
 ```
 
 ## Why not just use atomworks?
