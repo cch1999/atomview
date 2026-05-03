@@ -1,3 +1,12 @@
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://docs.astral.sh/ruff/)
+[![ty](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ty/main/assets/badge/v0.json)](https://github.com/astral-sh/ty)
+[![Tests](https://github.com/cch1999/atomview/actions/workflows/run_tests.yml/badge.svg)](https://github.com/cch1999/atomview/actions/workflows/run_tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)
+[![PyPI version](https://img.shields.io/pypi/v/atomview)](https://pypi.org/project/atomview/)
+<!-- [![Docs](https://img.shields.io/badge/docs-latest-blueviolet.svg)](https://atomview.readthedocs.io/en/latest/) -->
+
+
 # atomview
 
 A lightweight, standalone molecular structure viewer for Jupyter notebooks. Visualize [biotite](https://www.biotite-python.org/) `AtomArray` structures interactively using [py3Dmol](https://3dmol.csb.pitt.edu/) (3Dmol.js) — with chain-coloured cartoons, ligand sticks, ion spheres, surfaces, and hover labels out of the box.
