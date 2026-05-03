@@ -19,7 +19,11 @@ A lightweight, standalone molecular structure viewer for Jupyter notebooks. Visu
 pip install atomview
 ```
 
-Requires Python >= 3.12.
+Or with uv:
+
+```bash
+uv add atomview
+```
 
 ## Quickstart
 
