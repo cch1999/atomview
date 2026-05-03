@@ -3,7 +3,6 @@
 from unittest.mock import patch
 
 import pytest
-
 from package_template import main
 from package_template.cli import main as cli_main
 

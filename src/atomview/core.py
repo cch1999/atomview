@@ -5,14 +5,12 @@ __all__ = ["view"]
 import warnings
 from itertools import cycle
 
-from biotite.sequence.alphabet import Alphabet
 import biotite.structure as struc
 import numpy as np
 import py3Dmol
 from biotite.structure import AtomArray, AtomArrayStack
-from biotite.structure.io import mol, pdb, pdbx
 
-from atomview.constants import VIEWER_COLORS, METAL_ELEMENTS, CRYSTALLIZATION_AIDS
+from atomview.constants import CRYSTALLIZATION_AIDS, METAL_ELEMENTS, VIEWER_COLORS
 from atomview.utils import reassign_chain_ids, to_cif_string
 
 
