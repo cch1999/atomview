@@ -75,7 +75,6 @@ def to_cif_string(
         extra_fields = [
             field for field in structure.get_annotation_categories() if field not in standard_fields
         ]
-    print(extra_fields)
     # Set the structure in the CIF file (this creates the block)
     pdbx.set_structure(
         cif_file,
