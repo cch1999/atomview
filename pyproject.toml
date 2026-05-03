@@ -1,6 +1,6 @@
 [project]
 name = "atomview"
-version = "0.0.0"
+version = "0.0.1"
 description = "Lightweight molecular structure viewer for Jupyter notebooks using py3Dmol"
 readme = "README.md"
 authors = [
