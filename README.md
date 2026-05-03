@@ -15,12 +15,13 @@ Requires Python >= 3.12.
 ## Quickstart
 
 ```python
+# from urllib.request import urlretrieve
+# urlretrieve("https://files.rcsb.org/download/4HHB.cif", "4hhb.cif")
+
 from atomview import load_structure, view
 
-# Load a structure from a local mmCIF file
-structure = load_structure("tests/data/4hhb.cif")
+structure = load_structure("4hhb.cif")
 
-# Render it — that's it
 view(structure)
 ```
 
