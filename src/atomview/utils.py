@@ -13,6 +13,8 @@ import biotite.structure as struc
 import numpy as np
 from biotite.structure import AtomArray, AtomArrayStack
 from biotite.structure.io import pdbx
+from biotite.structure.io.pdb import PDBFile
+from biotite.structure.io.pdb import get_structure as pdb_get_structure
 
 
 def to_cif_string(
@@ -95,20 +97,19 @@ def to_cif_string(
     return buffer.getvalue()
 
 
-def load_structure(  # noqa: PLR0912
+def load_structure(  # noqa: PLR0912, PLR0915
     source: str | Path | io.StringIO | io.BytesIO,
     *,
     include_bonds: bool = True,
     model: int | None = None,
 ) -> AtomArray:
-    """Load an AtomArray structure from a CIF file or string.
+    """Load an AtomArray structure from mmCIF, BinaryCIF, or PDB files (or CIF text).
 
-    This function uses pure biotite to load structures from CIF format,
-    optimized for use with molecular viewers.
+    This function uses biotite I/O, optimised for use with molecular viewers.
 
     Args:
         source: The source to load from. Can be:
-            - A file path (str or Path) to a .cif or .bcif file
+            - A file path (str or Path) to a .cif, .bcif, or .pdb file
             - A StringIO/BytesIO buffer containing CIF data
             - A CIF string
         include_bonds (bool): Whether to include bonds in the structure. Defaults to True.
@@ -189,8 +190,23 @@ def load_structure(  # noqa: PLR0912
         ):
             # Regular CIF file
             cif_file = pdbx.CIFFile.read(str(path))
+        elif suffix == ".pdb" or (
+            suffix == ".gz" and len(path.suffixes) > 1 and path.suffixes[-2].lower() == ".pdb"
+        ):
+            pdb_file = PDBFile.read(str(path))
+            structure = pdb_get_structure(
+                pdb_file,
+                model=model if model is not None else 1,
+                include_bonds=include_bonds,
+            )
+            if isinstance(structure, AtomArrayStack):
+                if model is not None:
+                    structure = structure[model - 1]
+                else:
+                    structure = structure[0]
+            return structure
         else:
-            raise ValueError(f"Unsupported file format: {suffix}. Use .cif or .bcif")
+            raise ValueError(f"Unsupported file format: {suffix}. Use .cif, .bcif, or .pdb")
 
         # Load structure from CIF file
         structure = pdbx.get_structure(

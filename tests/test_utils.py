@@ -60,6 +60,15 @@ def test_load_structure_reads_cif_path(tmp_path: Path) -> None:
     assert len(loaded) == DEFAULT_ATOM_COUNT
 
 
+def test_load_structure_reads_pdb_path() -> None:
+    """Structure loading should accept a path to a PDB file."""
+    pdb_path = Path(__file__).resolve().parent / "data" / "4tos.pdb"
+    loaded = load_structure(pdb_path)
+
+    assert isinstance(loaded, AtomArray)
+    assert len(loaded) > 0
+
+
 def test_load_structure_rejects_missing_path(tmp_path: Path) -> None:
     """Missing Path inputs should raise FileNotFoundError."""
     with pytest.raises(FileNotFoundError):
