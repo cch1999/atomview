@@ -2,7 +2,7 @@
 
 A lightweight, standalone molecular structure viewer for Jupyter notebooks. Visualize [biotite](https://www.biotite-python.org/) `AtomArray` structures interactively using [py3Dmol](https://3dmol.csb.pitt.edu/) (3Dmol.js) — with chain-coloured cartoons, ligand sticks, ion spheres, surfaces, and hover labels out of the box.
 
-**atomview** extracts and refactors the excellent `view()` visualisation utility from [atomworks](https://github.com/RosettaCommons/atomworks) (`atomworks.io.utils.visualize`) into a focused, minimal package. If all you need is a quick way to render structures in a notebook, you no longer have to pull in atomworks and its full dependency tree (RDKit, ML tooling, dataset infrastructure, etc.).
+**atomview** extracts and refactors the excellent `view()` function from [atomworks](https://github.com/RosettaCommons/atomworks) (`atomworks.io.utils.visualize`) into a focused, minimal package. If all you need is a quick way to render structures in a notebook, you no longer have to pull in atomworks and its full dependency tree (RDKit, ML tooling, dataset infrastructure, etc.).
 
 ## Installation
 
@@ -25,7 +25,7 @@ structure = load_structure("4hhb.cif")
 view(structure)
 ```
 
-## Features
+<!-- ## Features
 
 - **One-liner visualisation** of any biotite `AtomArray` or `AtomArrayStack`
 - **Automatic chain colouring** with a curated 18-colour palette
@@ -34,7 +34,7 @@ view(structure)
 - **Optional VDW surface** overlay
 - **Zoom to selection** — focus on a specific chain, residue, or atom
 - **Solvent & crystallisation aid filtering** (SO4, GOL, EDO, PO4, etc.) enabled by default
-- **Lightweight** — only dependson `biotite` and `py3Dmol`.
+- **Lightweight** — only dependson `biotite` and `py3Dmol`. -->
 
 ## Gallery
 
