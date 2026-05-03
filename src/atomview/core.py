@@ -1,4 +1,8 @@
-"""Utility functions to visualize atom arrays with py3Dmol in Jupyter notebooks."""
+"""Utility functions to visualize atom arrays with py3Dmol in Jupyter notebooks.
+
+Adapted from atomworks.io.utils.visualize:
+https://github.com/RosettaCommons/atomworks/blob/production/src/atomworks/io/utils/visualize.py
+"""
 
 __all__ = ["view"]
 

@@ -1,4 +1,8 @@
-"""Utility functions for working with CIF files using pure biotite."""
+"""Utility functions for working with CIF files using pure biotite.
+
+Adapted from atomworks.io.utils.visualize:
+https://github.com/RosettaCommons/atomworks/blob/production/src/atomworks/io/utils/visualize.py
+"""
 
 import io
 from pathlib import Path

@@ -1,4 +1,8 @@
-"""Constants used to style molecular structures in py3Dmol."""
+"""Constants used to style molecular structures in py3Dmol.
+
+Adapted from atomworks.io.utils.visualize:
+https://github.com/RosettaCommons/atomworks/blob/production/src/atomworks/io/utils/visualize.py
+"""
 
 VIEWER_COLORS = [
     "#888888",  # pymol_gray
