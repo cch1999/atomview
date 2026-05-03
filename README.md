@@ -70,39 +70,6 @@ v = view(
 )
 ```
 
-**Key parameters:**
-
-| Parameter | Type | Default | Description |
-|---|---|---|---|
-| `structure` | `AtomArray \| AtomArrayStack` | *required* | Biotite structure to visualise |
-| `zoom_to_selection` | `dict \| None` | `None` | Zoom to `{"serial": 35}`, `{"chain": "A", "resi": 35}`, or `{"chain": "C"}` |
-| `show_cartoon` | `bool` | `True` | Cartoon representation for proteins/nucleic acids |
-| `show_surface` | `bool` | `True` | Semi-transparent VDW surface |
-| `show_hover` | `bool` | `True` | Hover labels with atom details |
-| `hide_solvent` | `bool` | `True` | Remove water molecules |
-| `hide_crystallization_aids` | `bool` | `True` | Remove common crystallisation artefacts |
-| `width` / `height` | `int` | `600` / `400` | Viewer dimensions in pixels |
-
-### `to_cif_string()`
-
-Convert a biotite `AtomArray` to a CIF-formatted string (useful for passing structures to other viewers or tools).
-
-```python
-from atomview import to_cif_string
-
-cif_str = to_cif_string(structure, id="my_protein")
-```
-
-### `load_structure()`
-
-Load a structure from a `.cif` or `.bcif` file, a file path string, or a `StringIO`/`BytesIO` buffer.
-
-```python
-from atomview import load_structure
-
-structure = load_structure("7gaw.cif")
-```
-
 ## Why not just use atomworks?
 
 [atomworks](https://github.com/RosettaCommons/atomworks) is a fantastic, comprehensive framework for biomolecular modelling maintained by RosettaCommons. But it's a big library — it bundles I/O, transforms, ML dataset tooling, RDKit integration, and more. If you just want to call `view(structure)` in a notebook, that's a lot of overhead.
