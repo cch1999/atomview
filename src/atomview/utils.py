@@ -95,7 +95,7 @@ def to_cif_string(
     return buffer.getvalue()
 
 
-def _load_structure(  # noqa: PLR0912
+def load_structure(  # noqa: PLR0912
     source: str | Path | io.StringIO | io.BytesIO,
     *,
     include_bonds: bool = True,
@@ -209,6 +209,9 @@ def _load_structure(  # noqa: PLR0912
         return structure
 
     raise ValueError(f"Unexpected source type after processing: {type(source)}")
+
+
+_load_structure = load_structure
 
 
 def reassign_chain_ids(structure: AtomArray) -> AtomArray:

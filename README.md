@@ -15,17 +15,14 @@ Requires Python >= 3.12.
 ## Quickstart
 
 ```python
-from atomview.core import view
-from atomview.utils import _load_structure
+from atomview import load_structure, view
 
 # Load a structure from a local mmCIF file
-structure = _load_structure("4hhb.cif")
+structure = load_structure("4hhb.cif")
 
 # Render it — that's it
 view(structure)
 ```
-
-![3D viewer rendering of hemoglobin (4HHB)](https://img.shields.io/badge/py3Dmol-interactive-blue)
 
 ## Features
 
@@ -57,7 +54,7 @@ view(structure)
 The main entry point. Returns a `py3Dmol.view` object that renders inline in Jupyter.
 
 ```python
-from atomview.core import view
+from atomview import view
 
 v = view(
     structure,
@@ -91,19 +88,19 @@ v = view(
 Convert a biotite `AtomArray` to a CIF-formatted string (useful for passing structures to other viewers or tools).
 
 ```python
-from atomview.utils import to_cif_string
+from atomview import to_cif_string
 
 cif_str = to_cif_string(structure, id="my_protein")
 ```
 
-### `_load_structure()`
+### `load_structure()`
 
 Load a structure from a `.cif` or `.bcif` file, a file path string, or a `StringIO`/`BytesIO` buffer.
 
 ```python
-from atomview.utils import _load_structure
+from atomview import load_structure
 
-structure = _load_structure("7gaw.cif")
+structure = load_structure("7gaw.cif")
 ```
 
 ## Why not just use atomworks?

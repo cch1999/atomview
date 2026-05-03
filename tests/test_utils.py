@@ -7,7 +7,8 @@ import numpy as np
 import pytest
 from biotite.structure import AtomArray
 
-from atomview.utils import _load_structure, reassign_chain_ids, to_cif_string
+from atomview import load_structure, to_cif_string
+from atomview.utils import reassign_chain_ids
 
 DEFAULT_ATOM_COUNT = 2
 
@@ -53,7 +54,7 @@ def test_load_structure_reads_cif_path(tmp_path: Path) -> None:
     cif_path = tmp_path / "structure.cif"
     cif_path.write_text(to_cif_string(make_atom_array()), encoding="utf-8")
 
-    loaded = _load_structure(cif_path)
+    loaded = load_structure(cif_path)
 
     assert isinstance(loaded, AtomArray)
     assert len(loaded) == DEFAULT_ATOM_COUNT
@@ -62,7 +63,7 @@ def test_load_structure_reads_cif_path(tmp_path: Path) -> None:
 def test_load_structure_rejects_missing_path(tmp_path: Path) -> None:
     """Missing Path inputs should raise FileNotFoundError."""
     with pytest.raises(FileNotFoundError):
-        _load_structure(tmp_path / "missing.cif")
+        load_structure(tmp_path / "missing.cif")
 
 
 def test_load_structure_rejects_unsupported_extension(tmp_path: Path) -> None:
@@ -71,7 +72,7 @@ def test_load_structure_rejects_unsupported_extension(tmp_path: Path) -> None:
     bad_path.write_text("not a cif", encoding="utf-8")
 
     with pytest.raises(ValueError, match="Unsupported file format"):
-        _load_structure(bad_path)
+        load_structure(bad_path)
 
 
 def test_reassign_chain_ids_returns_copy_and_splits_hetero_atoms() -> None:

@@ -1,6 +1,6 @@
 """Lightweight molecular structure viewer for Jupyter notebooks."""
 
+from atomview.core import view
+from atomview.utils import load_structure
 
-def main() -> None:
-    """Print a short message for the package console script."""
-    print("Hello from atomview!")
+__all__ = ["load_structure", "view"]
