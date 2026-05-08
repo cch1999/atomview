@@ -28,14 +28,16 @@ uv add atomview
 ## Quickstart
 
 ```python
-# from urllib.request import urlretrieve
-# urlretrieve("https://files.rcsb.org/download/4HHB.cif", "4hhb.cif")
+# Fetch example structure
+from biotite.database.rcsb import fetch
+file = fetch("4hhb", "cif")
 
+# Core atomview API
 from atomview import load_structure, view
 
-structure = load_structure("4hhb.cif")
+atomarray = load_structure(file)
 
-view(structure)
+view(atomarray)
 ```
 
 <!-- ## Features
